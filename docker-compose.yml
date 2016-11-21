@@ -7,3 +7,4 @@ services:
     command: bash --login
     volumes:
       - .:/kitchen-vagrant-remote
+      - ${HOME}/.ssh:/root/.ssh
