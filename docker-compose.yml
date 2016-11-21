@@ -1,0 +1,9 @@
+version: "2"
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: ./dockerfiles/Dockerfile.dev
+    command: bash --login
+    volumes:
+      - .:/kitchen-vagrant-remote

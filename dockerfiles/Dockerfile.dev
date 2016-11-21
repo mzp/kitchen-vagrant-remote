@@ -1,0 +1,25 @@
+FROM ubuntu:16.04
+
+MAINTAINER mzp <mzpppp@gmail.com>
+
+ENV DEBIAN_FRONTEND noninteractive
+
+WORKDIR /tmp
+
+RUN apt-get update
+
+RUN apt-get install -y build-essential curl git libssl-dev libreadline-dev zlib1g-dev
+
+RUN git clone https://github.com/sstephenson/rbenv.git ~/.rbenv && git clone https://github.com/sstephenson/ruby-build.git ~/.rbenv/plugins/ruby-build && git clone https://github.com/jf/rbenv-gemset.git ~/.rbenv/plugins/rbenv-gemset
+
+RUN echo 'export PATH="$HOME/.rbenv/bin:$PATH"' >> ~/.bashrc && echo 'eval "$(rbenv init -)"' >> ~/.bashrc
+
+COPY .ruby-version ./
+
+RUN bash -i -c 'rbenv install '`cat .ruby-version`
+
+RUN bash -i -c 'gem i bundler'
+
+USER root
+
+WORKDIR /kitchen-vagrant-remote
