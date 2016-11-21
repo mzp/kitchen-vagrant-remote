@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "kitchen/vagrant/remote/version"
 
 module Kitchen
