@@ -1,11 +1,11 @@
 # frozen_string_literal: true
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'kitchen/vagrant/remote/version'
+require 'kitchen/driver/vagrant_remote_version'
 
 Gem::Specification.new do |spec|
   spec.name          = "kitchen-vagrant-remote"
-  spec.version       = Kitchen::Vagrant::Remote::VERSION
+  spec.version       = Kitchen::Driver::VAGRANT_REMOTE_VERSION
   spec.authors       = ["mzp"]
   spec.email         = ["mzpppp@gmail.com"]
 
