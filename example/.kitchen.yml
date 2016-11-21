@@ -1,0 +1,15 @@
+---
+driver:
+  name: vagrant_remote
+  remote_host: mzp@192.168.11.108
+
+provisioner:
+  name: chef_zero
+
+platforms:
+  - name: ubuntu-16.04
+
+suites:
+  - name: sandbox
+    driver:
+      box: ubuntu/xenial64
