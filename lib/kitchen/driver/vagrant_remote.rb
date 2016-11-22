@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 require "kitchen/driver/vagrant"
 require "kitchen/driver/vagrant_remote_version"
+require "kitchen/driver/disable_gateway_option"
 
 module Kitchen
   module Driver
@@ -14,6 +15,9 @@ module Kitchen
       default_config :remote_root, "/private/tmp"
       default_config :remote_vagrant_binary, "vagrant"
       default_config :wrapper_script, "/tmp/wrapper"
+      default_config :ssh_gateway, nil
+      default_config :ssh_gateway_username, nil
+      default_config :ssh_gateway_port, 22
 
       private
 
@@ -28,12 +32,16 @@ module Kitchen
         @config = LazyHash.new(@config, self)
       end
 
-      def run_vagrant_up
-        info "run vagrant up at #{vagrant_root}"
-        dest = "#{config[:remote_root]}/#{vagrant_root}"
+      def update_state(state)
+        super
 
-        run("ssh #{config[:remote_host]} mkdir -p #{dest}")
-        run("rsync -az #{vagrant_root}/ #{config[:remote_host]}:#{dest}/")
+        copy_from_remote
+
+        state[:ssh_key] = state[:ssh_key].sub(/\A#{config[:remote_root]}/, '')
+        state[:ssh_gateway] = config[:remote_host]
+        state[:ssh_gateway_username] = config[:remote_user]
+        state[:ssh_gateway_port] = config[:ssh_gateway_port]
+      end
 
       def run_vagrant_up
         info "run vagrant up at #{vagrant_root}"
@@ -51,6 +59,10 @@ cd ./$(pwd)
 #{config[:remote_vagrant_binary]} $@
 CMD
         END
+      end
+
+      def copy_from_remote
+        run("rsync -az #{config[:remote_user]}@#{config[:remote_host]}:#{remote_vagrant_root}/ #{vagrant_root}/")
       end
 
       def copy_to_remote
