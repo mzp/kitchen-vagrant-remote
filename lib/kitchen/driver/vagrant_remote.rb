@@ -62,16 +62,20 @@ CMD
       end
 
       def copy_from_remote
-        run("rsync -az #{config[:remote_user]}@#{config[:remote_host]}:#{remote_vagrant_root}/ #{vagrant_root}/")
+        run("rsync -az #{remote_server}:#{remote_vagrant_root}/ #{vagrant_root}/")
       end
 
       def copy_to_remote
-        run("ssh #{config[:remote_user]}@#{config[:remote_host]} mkdir -p #{remote_vagrant_root}")
-        run("rsync -az #{vagrant_root}/ #{config[:remote_user]}@#{config[:remote_host]}:#{remote_vagrant_root}/")
+        run("ssh #{remote_server} mkdir -p #{remote_vagrant_root}")
+        run("rsync -az #{vagrant_root}/ #{remote_server}:#{remote_vagrant_root}/")
       end
 
       def remote_vagrant_root
         "#{config[:remote_root]}/#{vagrant_root}"
+      end
+
+      def remote_server
+        "#{config[:remote_user]}@#{config[:remote_host]}"
       end
     end
   end
