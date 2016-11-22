@@ -1,39 +1,39 @@
-# Kitchen::Vagrant::Remote
+# Kitchen::Driver::VagrantRemote
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/kitchen/vagrant/remote`. To experiment with that code, run `bin/console` for an interactive prompt.
+A Test Kitchen Driver for Vagrant at remote host.
 
-TODO: Delete this and the text above, and describe your gem
+This driver extends [kitchen-vagrant](https://github.com/test-kitchen/kitchen-vagrant) to execute vagrant at remote host.
 
-## Installation
+## Requirements
+Same as [kitchen-vagrant](https://github.com/test-kitchen/kitchen-vagrant).
 
-Add this line to your application's Gemfile:
+## Examples
 
-```ruby
-gem 'kitchen-vagrant-remote'
+```
+$ export REMOTE_USER=$(whoami)
+$ export REMOTE_HOST=$(ifconfig en1 | grep 'inet ' | awk '{print $2}')
+
+$ docker-compose build
+$ docker-compose run dev bash
+
+# cd example
+# bundle
+# bundle exec test
 ```
 
-And then execute:
+## Configuration
+You can use same configuration as [kitchen-vagrant](https://github.com/test-kitchen/kitchen-vagrant). And more, you can also use following configuration.
 
-    $ bundle
+### remote_user
+User name of remote server.
 
-Or install it yourself as:
+### remote_host
+Host name of remote server.
 
-    $ gem install kitchen-vagrant-remote
+### remote_root
+Root directory of remote server.
 
-## Usage
-
-TODO: Write usage instructions here
-
-## Development
-
-After checking out the repo, run `bin/setup` to install dependencies. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
-
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
-
-## Contributing
-
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/kitchen-vagrant-remote. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
-
+The default is `'/private/tmp'`.
 
 ## License
 
