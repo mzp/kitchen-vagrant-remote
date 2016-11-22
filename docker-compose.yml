@@ -1,3 +1,10 @@
+# How to run:
+#
+#   export REMOTE_USER=$(whoami)
+#   export REMOTE_HOST=$(ifconfig en1 | grep 'inet ' | awk '{print $2}')
+#   docker-compose build
+#   docker-compose run dev bash
+#
 version: "2"
 services:
   dev:
@@ -8,3 +15,6 @@ services:
     volumes:
       - .:/kitchen-vagrant-remote
       - ${HOME}/.ssh:/root/.ssh
+    environment:
+      REMOTE_USER: ${REMOTE_USER}
+      REMOTE_HOST: ${REMOTE_HOST}

@@ -1,8 +1,8 @@
 ---
 driver:
   name: vagrant_remote
-  remote_user: mzp
-  remote_host: 192.168.11.108
+  remote_user: <%= ENV['REMOTE_USER'] %>
+  remote_host: <%= ENV['REMOTE_HOST'] %>
 
 provisioner:
   name: chef_zero
