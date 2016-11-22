@@ -14,3 +14,6 @@ suites:
   - name: sandbox
     driver:
       box: ubuntu/xenial64
+    run_list:
+      - recipe[git::default]
+    attributes:
