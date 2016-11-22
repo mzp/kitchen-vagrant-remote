@@ -15,9 +15,6 @@ module Kitchen
       default_config :remote_root, "/private/tmp"
       default_config :remote_vagrant_binary, "vagrant"
       default_config :wrapper_script, "/tmp/wrapper"
-      default_config :ssh_gateway, nil
-      default_config :ssh_gateway_username, nil
-      default_config :ssh_gateway_port, 22
 
       private
 
