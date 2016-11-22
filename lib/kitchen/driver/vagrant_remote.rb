@@ -11,7 +11,7 @@ module Kitchen
 
       default_config :remote_user, "user"
       default_config :remote_host, ""
-      default_config :remote_root, "/tmp"
+      default_config :remote_root, "/private/tmp"
       default_config :remote_vagrant_binary, "vagrant"
       default_config :wrapper_script, "/tmp/wrapper"
 
